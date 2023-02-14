@@ -1,5 +1,9 @@
+header nav, main {
+    background-color: #1d1c44;
+}
+
 .text-nav-link {
-    font-size: 1.5vw;
+    font-size: 1.4vw;
 }
 
 svg {

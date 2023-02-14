@@ -1,11 +1,10 @@
-import { NavLink } from "react-router-dom"
 import { FcCalendar, FcComboChart, FcSettings, FcBusinessman } from "react-icons/fc"
 import { GiMasonJar } from "react-icons/gi"
 
 export default function Navbar() {
     return (
         <header>
-            <nav className="navbar navbar-expand-lg navbar-dark py-2 px-3" style={{ backgroundColor: "#1d1c44" }}>
+            <nav className="navbar navbar-expand-lg navbar-dark py-2 px-3">
                 <a className="navbar-brand" href="/">
                     <img src="/brand.png" height="36" alt="brand" />
                 </a>
@@ -20,28 +19,28 @@ export default function Navbar() {
                 <div className="collapse navbar-collapse" id="mynavbar">
                     <ul className="navbar-nav me-auto">
                         <li className="nav-item">
-                            <NavLink className="nav-link" to="/">
+                            <a className="nav-link text-light" href="/">
                                 <FcCalendar className="fs-2" />
                                 <span className="d-inline-block ms-1 text-nav-link">Daily</span>
-                            </NavLink>
+                            </a>
                         </li>
                         <li className="nav-item">
-                            <NavLink className="nav-link" to="/">
+                            <a className="nav-link text-light" href="/">
                                 <GiMasonJar className="fs-2" style={{ color: "khaki" }} />
                                 <span className="d-inline-block ms-1 text-nav-link">6 Jars</span>
-                            </NavLink>
+                            </a>
                         </li>
                         <li className="nav-item">
-                            <NavLink className="nav-link" to="/">
+                            <a className="nav-link text-light" href="/">
                                 <FcComboChart className="fs-2" style={{ color: "khaki" }} />
                                 <span className="d-inline-block ms-1 text-nav-link">Statistics</span>
-                            </NavLink>
+                            </a>
                         </li>
                         <li className="nav-item">
-                            <NavLink className="nav-link" to="/">
+                            <a className="nav-link text-light" href="/">
                                 <FcSettings className="fs-2" style={{ color: "khaki" }} />
                                 <span className="d-inline-block ms-1 text-nav-link">Setting</span>
-                            </NavLink>
+                            </a>
                         </li>
                     </ul>
                     <form className="d-flex my-2 me-2">
