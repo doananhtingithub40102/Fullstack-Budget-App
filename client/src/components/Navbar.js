@@ -43,11 +43,11 @@ export default function Navbar() {
                             </a>
                         </li>
                     </ul>
-                    <form className="d-flex my-2 me-2">
+                    <form className="d-flex my-2 me-3">
                         <input className="form-control me-2" type="text" placeholder="Search" />
                         <button className="btn btn-primary" type="button">Search</button>
                     </form>
-                    <ul className="navbar-nav ms-auto">
+                    <ul className="navbar-nav">
                         <li className="nav-item">
                             <button
                                 type="button"
