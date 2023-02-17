@@ -1,4 +1,5 @@
-header nav, main {
+header nav,
+main {
     background-color: #1d1c44;
 }
 
@@ -10,8 +11,28 @@ svg {
     vertical-align: bottom !important;
 }
 
+.transactions_in_day {
+    background-color: rgb(61, 60, 100);
+}
+
+/* Hover */
+#mynavbar ul li:hover {
+    background-color: #49438d;
+}
+
+.duration:hover {
+    border-bottom: 2px solid #ff55c5;
+}
+
+/* Media Queries */
 @media only screen and (max-width: 768px) {
     .text-nav-link {
         font-size: 1rem;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .transactions .row .col-md-6:nth-child(2) {
+        padding-left: 0;
     }
 }
