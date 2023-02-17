@@ -4,7 +4,7 @@ import { GiMasonJar } from "react-icons/gi"
 export default function Navbar() {
     return (
         <header>
-            <nav className="navbar navbar-expand-lg navbar-dark py-2 px-3">
+            <nav className="navbar navbar-expand-lg navbar-dark px-3 py-0">
                 <a className="navbar-brand" href="/">
                     <img src="/brand.png" height="36" alt="brand" />
                 </a>
@@ -43,7 +43,7 @@ export default function Navbar() {
                             </a>
                         </li>
                     </ul>
-                    <form className="d-flex my-2 me-3">
+                    <form className="d-flex me-3 my-2">
                         <input className="form-control me-2" type="text" placeholder="Search" />
                         <button className="btn btn-primary" type="button">Search</button>
                     </form>
