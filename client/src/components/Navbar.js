@@ -1,7 +1,7 @@
 import { FcCalendar, FcComboChart, FcSettings, FcBusinessman } from "react-icons/fc"
 import { GiMasonJar } from "react-icons/gi"
 
-export default function Navbar() {
+const Navbar = () => {
     return (
         <header>
             <nav className="navbar navbar-expand-lg navbar-dark px-3 py-0">
@@ -62,3 +62,5 @@ export default function Navbar() {
         </header>
     )
 }
+
+export default Navbar
