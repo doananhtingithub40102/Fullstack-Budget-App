@@ -1,8 +1,11 @@
-import { FcPrevious, FcNext } from "react-icons/fc"
+import Modal from "./Modal"
+import { FcPrevious, FcNext, FcAddDatabase } from "react-icons/fc"
 
-export default function Dashboard() {
+const Dashboard = () => {
+    const modal_id = "transactionModal"
+
     return (
-        <main className="border-top pb-2">
+        <main className="border-top pb-2 position-relative">
             <div className="mx-2 mt-2">
                 <button
                     type="button"
@@ -238,6 +241,23 @@ export default function Dashboard() {
                     </div>
                 </div>
             </div>
+
+
+            <button
+                type="button"
+                className="btn btn-primary rounded-circle border-white position-fixed px-2 pt-0 pb-1 fs-4"
+                id="transactionButton"
+                data-bs-toggle="modal"
+                data-bs-target={`#${modal_id}`}
+            >
+                <FcAddDatabase />
+            </button>
+
+            <Modal modal_id={modal_id} />
+
+
         </main>
     )
 }
+
+export default Dashboard
