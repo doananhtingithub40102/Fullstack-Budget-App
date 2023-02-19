@@ -1,4 +1,6 @@
 import { useRef, useState } from "react"
+import { getCategories } from "../utils/categories"
+import { getCurrentDateTime } from "../utils/datetime"
 
 const NavTabs = () => {
     const navTabs = useRef()
@@ -41,7 +43,7 @@ const NavTabs = () => {
                                 type="datetime-local"
                                 className="form-control"
                                 name="datetime"
-                                value={form.datetime || ""}
+                                value={form.datetime || getCurrentDateTime()}
                                 onChange={handleChange}
                                 id="datetime"
                             />
@@ -76,11 +78,13 @@ const NavTabs = () => {
                             <select
                                 className="form-select"
                                 name="category"
-                                value={form.category || "eat_drink"}
+                                value={form.category || "eat_drink_necessaries"}
                                 onChange={handleChange}
                                 id="categories"
                             >
-                                <option value="eat_drink">Eat & Drink</option>
+                                {getCategories(form.jar).map((category, index) => (
+                                    <option key={index} value={category.value}>{category.label}</option>
+                                ))}
                             </select>
                         </div>
                     </div>
@@ -129,7 +133,7 @@ const NavTabs = () => {
                                 type="datetime-local"
                                 className="form-control"
                                 name="datetime"
-                                value={form.datetime || ""}
+                                value={form.datetime || getCurrentDateTime()}
                                 onChange={handleChange}
                                 id="datetime"
                             />

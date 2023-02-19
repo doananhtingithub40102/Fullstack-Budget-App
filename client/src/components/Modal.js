@@ -1,8 +1,8 @@
 import NavTabs from "./NavTabs"
 
-const Modal = ({ modal_id }) => {
+const Modal = (props) => {
     return (
-        <div className="modal fade" id={modal_id}>
+        <div className="modal fade" id={props.modal_id}>
             <div className="modal-dialog">
                 <div className="modal-content">
                     <form action="">
