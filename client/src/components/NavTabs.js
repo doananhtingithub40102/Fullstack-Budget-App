@@ -1,9 +1,10 @@
-import { useRef } from "react"
+import { useRef, useState } from "react"
 
 const NavTabs = () => {
     const navTabs = useRef()
+    const [form, setForm] = useState({})
 
-    function setBorderNavTabs(event) {
+    function handleToggleTabs(event) {
         if (event.target.textContent === "Expenditure") {
             navTabs.current.style = "border-bottom-color: #dc3545 !important"
         } else {
@@ -11,14 +12,20 @@ const NavTabs = () => {
         }
     }
 
+    function handleChange(event) {
+        const name = event.target.name
+        const value = event.target.value
+        setForm((preForm) => ({ ...preForm, [name]: value }))
+    }
+
     return (
         <>
             <ul className="nav nav-tabs" ref={navTabs}>
                 <li className="nav-item">
-                    <a className="nav-link active" onClick={setBorderNavTabs} data-bs-toggle="tab" href="#expenditure">Expenditure</a>
+                    <a className="nav-link active" onClick={handleToggleTabs} data-bs-toggle="tab" href="#expenditure">Expenditure</a>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link" onClick={setBorderNavTabs} data-bs-toggle="tab" href="#income">Income</a>
+                    <a className="nav-link" onClick={handleToggleTabs} data-bs-toggle="tab" href="#income">Income</a>
                 </li>
             </ul>
 
@@ -33,6 +40,9 @@ const NavTabs = () => {
                             <input
                                 type="datetime-local"
                                 className="form-control"
+                                name="datetime"
+                                value={form.datetime || ""}
+                                onChange={handleChange}
                                 id="datetime"
                             />
                         </div>
@@ -42,7 +52,13 @@ const NavTabs = () => {
                             <label htmlFor="jars" className="col-form-label">Financial Jar:</label>
                         </div>
                         <div className="col-sm-9">
-                            <select className="form-select" id="jars">
+                            <select
+                                className="form-select"
+                                name="jar"
+                                value={form.jar || "necessaries"}
+                                onChange={handleChange}
+                                id="jars"
+                            >
                                 <option value="necessaries">The Necessaries Account</option>
                                 <option value="freedom">Financial Freedom Account</option>
                                 <option value="saving">Long-term Saving Account</option>
@@ -57,7 +73,13 @@ const NavTabs = () => {
                             <label htmlFor="categories" className="col-form-label">Category:</label>
                         </div>
                         <div className="col-sm-9">
-                            <select className="form-select" id="categories">
+                            <select
+                                className="form-select"
+                                name="category"
+                                value={form.category || "eat_drink"}
+                                onChange={handleChange}
+                                id="categories"
+                            >
                                 <option value="eat_drink">Eat & Drink</option>
                             </select>
                         </div>
@@ -70,7 +92,11 @@ const NavTabs = () => {
                             <input
                                 type="text"
                                 className="form-control"
+                                name="amount"
+                                value={form.amount || ""}
+                                onChange={handleChange}
                                 id="amount"
+                                placeholder="Amount of Money"
                             />
                         </div>
                     </div>
@@ -82,7 +108,11 @@ const NavTabs = () => {
                             <input
                                 type="text"
                                 className="form-control"
+                                name="description"
+                                value={form.description || ""}
+                                onChange={handleChange}
                                 id="description"
+                                placeholder="Description about your transaction"
                             />
                         </div>
                     </div>
@@ -98,6 +128,9 @@ const NavTabs = () => {
                             <input
                                 type="datetime-local"
                                 className="form-control"
+                                name="datetime"
+                                value={form.datetime || ""}
+                                onChange={handleChange}
                                 id="datetime"
                             />
                         </div>
@@ -107,7 +140,13 @@ const NavTabs = () => {
                             <label htmlFor="categories" className="col-form-label">Category:</label>
                         </div>
                         <div className="col-sm-9">
-                            <select className="form-select" id="categories">
+                            <select
+                                className="form-select"
+                                name="category"
+                                value={form.category || "part-time"}
+                                onChange={handleChange}
+                                id="categories"
+                            >
                                 <option value="part-time">Part-time</option>
                                 <option value="full-time">Full-time</option>
                                 <option value="bonus">Bonus</option>
@@ -122,7 +161,11 @@ const NavTabs = () => {
                             <input
                                 type="text"
                                 className="form-control"
+                                name="amount"
+                                value={form.amount || ""}
+                                onChange={handleChange}
                                 id="amount"
+                                placeholder="Amount of Money"
                             />
                         </div>
                     </div>
@@ -134,7 +177,11 @@ const NavTabs = () => {
                             <input
                                 type="text"
                                 className="form-control"
+                                name="description"
+                                value={form.description || ""}
+                                onChange={handleChange}
                                 id="description"
+                                placeholder="Description about your transaction"
                             />
                         </div>
                     </div>
