@@ -1,8 +1,9 @@
+import { useState } from "react"
 import Modal from "./Modal"
 import { FcPrevious, FcNext, FcAddDatabase } from "react-icons/fc"
 
 const Dashboard = () => {
-    const modal_id = "transactionModal"
+    const [showModal, setShowModal] = useState(false)
 
     return (
         <main className="border-top pb-2 position-relative">
@@ -247,13 +248,12 @@ const Dashboard = () => {
                 type="button"
                 className="btn btn-primary rounded-circle border-white position-fixed px-2 pt-0 pb-1 fs-4"
                 id="transactionButton"
-                data-bs-toggle="modal"
-                data-bs-target={`#${modal_id}`}
+                onClick={() => setShowModal(true)}
             >
                 <FcAddDatabase />
             </button>
 
-            <Modal modal_id={modal_id} />
+            <Modal modal={{ showModal: showModal, setShowModal: setShowModal }} />
 
 
         </main>

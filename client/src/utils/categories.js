@@ -64,4 +64,35 @@ function getCategories(jar) {
     return categories
 }
 
-export { getCategories }
+function getCategoryValue(jar) {
+    let category
+
+    switch (jar) {
+        case "necessaries":
+            category = "eat_drink_necessaries"
+            break
+        case "freedom":
+            category = "fundCertificates"
+            break
+        case "saving":
+            category = "saving"
+            break
+        case "education":
+            category = "documents"
+            break
+        case "playing":
+            category = "eat_drink_playing"
+            break
+        case "giving":
+            category = "charity"
+            break
+
+        default:
+            category = "eat_drink_necessaries"
+            break
+    }
+
+    return category
+}
+
+export { getCategories, getCategoryValue }
