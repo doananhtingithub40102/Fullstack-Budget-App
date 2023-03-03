@@ -1,9 +1,11 @@
-import { useState } from "react"
+import { useState, useContext } from "react"
 import Modal from "./Modal"
+import { TransactionContext } from "../utils/TransactionProvider"
 import { FcPrevious, FcNext, FcAddDatabase } from "react-icons/fc"
 
 const Dashboard = () => {
     const [showModal, setShowModal] = useState(false)
+    const { transactions, setTransactions } = useContext(TransactionContext)
 
     return (
         <main className="border-top pb-2 position-relative">
