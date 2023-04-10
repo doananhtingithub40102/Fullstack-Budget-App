@@ -1,3 +1,5 @@
+import categoryData from "./categoryData"
+
 const jars = {
     necessaries: [
         { label: "Eat & Drink", value: "eat_drink_necessaries" },
@@ -95,4 +97,11 @@ function getCategoryValue(jar) {
     return category
 }
 
-export { getCategories, getCategoryValue }
+function getCategoryNameById(category_id) {
+    const category = categoryData.find((category) => category._id === category_id)
+    const categoryName = category.name
+
+    return categoryName
+}
+
+export { getCategories, getCategoryValue, getCategoryNameById }

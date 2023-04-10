@@ -18,41 +18,39 @@ const defaultIncomeForm = {
     description: ""
 }
 
-function handleErrorOfDatetime(datetime) {
+function handleErrorOfDatetime(datetime, index) {
     if (datetime === "") {
-        document.getElementsByClassName("errDatetime").item(0).textContent = "Datetime is no empty!"
-        document.getElementsByClassName("errDatetime").item(1).textContent = "Datetime is no empty!"
+        document.getElementsByClassName("errDatetime").item(index).textContent = "Datetime is no empty!"
         return false
     }
-    document.getElementsByClassName("errDatetime").item(0).textContent = ""
-    document.getElementsByClassName("errDatetime").item(1).textContent = ""
+    document.getElementsByClassName("errDatetime").item(index).textContent = ""
     return true
 }
 
-function handleErrorOfAmount(amount) {
+function handleErrorOfAmount(amount, index) {
     if (amount === "") {
-        document.getElementsByClassName("errAmount").item(0).textContent = "Amount of money is no empty!"
-        document.getElementsByClassName("errAmount").item(1).textContent = "Amount of money is no empty!"
+        document.getElementsByClassName("errAmount").item(index).textContent = "Amount of money is no empty!"
         return false
     }
-    document.getElementsByClassName("errAmount").item(0).textContent = ""
-    document.getElementsByClassName("errAmount").item(1).textContent = ""
+    if (parseInt(amount, 10) < 1000) {
+        document.getElementsByClassName("errAmount").item(index).textContent = "Amount of money must be greater than or equal to 1000!"
+        return false
+    }
+    document.getElementsByClassName("errAmount").item(index).textContent = ""
     return true
 }
 
-function handleErrorOfDescription(description) {
+function handleErrorOfDescription(description, index) {
     if (description === "") {
-        document.getElementsByClassName("errDescription").item(0).textContent = "Description is no empty!"
-        document.getElementsByClassName("errDescription").item(1).textContent = "Description is no empty!"
+        document.getElementsByClassName("errDescription").item(index).textContent = "Description is no empty!"
         return false
     }
-    document.getElementsByClassName("errDescription").item(0).textContent = ""
-    document.getElementsByClassName("errDescription").item(1).textContent = ""
+    document.getElementsByClassName("errDescription").item(index).textContent = ""
     return true
 }
 
-function checkForm(form) {
-    if (!handleErrorOfAmount(form.amount) || !handleErrorOfDescription(form.description)) {
+function checkForm(form, index) {
+    if (!handleErrorOfDatetime(form.datetime, index) || !handleErrorOfAmount(form.amount, index) || !handleErrorOfDescription(form.description, index)) {
         return false
     }
     return true
