@@ -54,7 +54,7 @@ const NavTabs = ({ form }) => {
                                 name="datetime"
                                 value={form.formfields.datetime}
                                 onChange={handleChange}
-                                onBlur={() => handleErrorOfDatetime(form.formfields.datetime)}
+                                onBlur={() => handleErrorOfDatetime(form.formfields.datetime, 0)}
                                 id="datetime"
                             />
                             <span className="text-danger errDatetime"></span>
@@ -105,12 +105,12 @@ const NavTabs = ({ form }) => {
                         </div>
                         <div className="col-sm-9">
                             <input
-                                type="text"
+                                type="number"
                                 className="form-control"
                                 name="amount"
                                 value={form.formfields.amount}
                                 onChange={handleChange}
-                                onBlur={() => handleErrorOfAmount(form.formfields.amount)}
+                                onBlur={() => handleErrorOfAmount(form.formfields.amount, 0)}
                                 id="amount"
                                 placeholder="Amount of Money"
                             />
@@ -128,7 +128,7 @@ const NavTabs = ({ form }) => {
                                 name="description"
                                 value={form.formfields.description}
                                 onChange={handleChange}
-                                onBlur={() => handleErrorOfDescription(form.formfields.description)}
+                                onBlur={() => handleErrorOfDescription(form.formfields.description, 0)}
                                 id="description"
                                 placeholder="Description about your transaction"
                             />
@@ -150,7 +150,7 @@ const NavTabs = ({ form }) => {
                                 name="datetime"
                                 value={form.formfields.datetime}
                                 onChange={handleChange}
-                                onBlur={() => handleErrorOfDatetime(form.formfields.datetime)}
+                                onBlur={() => handleErrorOfDatetime(form.formfields.datetime, 1)}
                                 id="datetime"
                             />
                             <span className="text-danger errDatetime"></span>
@@ -180,12 +180,12 @@ const NavTabs = ({ form }) => {
                         </div>
                         <div className="col-sm-9">
                             <input
-                                type="text"
+                                type="number"
                                 className="form-control"
                                 name="amount"
                                 value={form.formfields.amount}
                                 onChange={handleChange}
-                                onBlur={() => handleErrorOfAmount(form.formfields.amount)}
+                                onBlur={() => handleErrorOfAmount(form.formfields.amount, 1)}
                                 id="amount"
                                 placeholder="Amount of Money"
                             />
@@ -203,7 +203,7 @@ const NavTabs = ({ form }) => {
                                 name="description"
                                 value={form.formfields.description}
                                 onChange={handleChange}
-                                onBlur={() => handleErrorOfDescription(form.formfields.description)}
+                                onBlur={() => handleErrorOfDescription(form.formfields.description, 1)}
                                 id="description"
                                 placeholder="Description about your transaction"
                             />
