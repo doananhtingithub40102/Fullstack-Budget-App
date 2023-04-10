@@ -1,20 +1,29 @@
 import { useState, useEffect } from "react"
 import NavTabs from "./NavTabs"
 import { getCurrentDateTime } from "../utils/datetime"
-import { defaultExpenditureForm, checkForm } from "../utils/form"
+import { defaultExpenditureForm, checkForm, clearErrors } from "../utils/form"
+
+import bootstrap from "bootstrap/dist/js/bootstrap.min"
 
 const Modal = ({ modal }) => {
     const [formfields, setFormfields] = useState(defaultExpenditureForm)
 
     useEffect(() => {
-        setFormfields({ ...defaultExpenditureForm, datetime: getCurrentDateTime() })
+        if (modal.showModal === true) {
+            setFormfields({ ...defaultExpenditureForm, datetime: getCurrentDateTime() })
+            clearErrors(0)
+
+            const triggerExpendTabs = document.querySelector(".nav-tabs a[href='#expenditure']")
+            bootstrap.Tab.getInstance(triggerExpendTabs).show()
+            document.querySelector(".nav-tabs").style = "border-bottom-color: #dc3545 !important"
+        }
     }, [modal.showModal])
 
     function handleSubmit(event) {
         event.preventDefault()
 
         // console.log(formfields)
-        if (checkForm(formfields)) {
+        if (checkForm(formfields, formfields.type === "expenditure" ? 0 : 1)) {
             modal.setShowModal(false)
         }
     }
