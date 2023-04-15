@@ -1,19 +1,19 @@
 import { useRef } from "react"
-import { getCategories, getCategoryValue } from "../utils/categories"
+import { getCategories, getDefaultCategoryValue } from "../utils/categories"
 import { getCurrentDateTime } from "../utils/datetime"
 import { defaultExpenditureForm, defaultIncomeForm, handleErrorOfDatetime, handleErrorOfAmount, handleErrorOfDescription, clearErrors } from "../utils/form"
 
-const NavTabs = ({ form }) => {
+const NavTabs = ({ form, setForm }) => {
     const navTabs = useRef()
 
     function handleToggleTabs(event) {
         if (event.target.textContent === "Expenditure") {
             navTabs.current.style = "border-bottom-color: #dc3545 !important"
-            form.setFormfields({ ...defaultExpenditureForm, datetime: getCurrentDateTime() })
+            setForm({ ...defaultExpenditureForm, datetime: getCurrentDateTime() })
             clearErrors(0)
         } else {
             navTabs.current.style = "border-bottom-color: #0d6efd !important"
-            form.setFormfields({ ...defaultIncomeForm, datetime: getCurrentDateTime() })
+            setForm({ ...defaultIncomeForm, datetime: getCurrentDateTime() })
             clearErrors(1)
         }
     }
@@ -23,9 +23,9 @@ const NavTabs = ({ form }) => {
         const value = event.target.value
 
         if (name === "jar") {
-            form.setFormfields((preForm) => ({ ...preForm, jar: value, category: getCategoryValue(value) }))
+            setForm((preForm) => ({ ...preForm, jar: value, category: getDefaultCategoryValue(value) }))
         } else {
-            form.setFormfields((preForm) => ({ ...preForm, [name]: value }))
+            setForm((preForm) => ({ ...preForm, [name]: value }))
         }
     }
 
@@ -52,9 +52,9 @@ const NavTabs = ({ form }) => {
                                 type="datetime-local"
                                 className="form-control"
                                 name="datetime"
-                                value={form.formfields.datetime}
+                                value={form.datetime}
                                 onChange={handleChange}
-                                onBlur={() => handleErrorOfDatetime(form.formfields.datetime, 0)}
+                                onBlur={() => handleErrorOfDatetime(form.datetime, 0)}
                                 id="datetime"
                             />
                             <span className="text-danger errDatetime"></span>
@@ -68,7 +68,7 @@ const NavTabs = ({ form }) => {
                             <select
                                 className="form-select"
                                 name="jar"
-                                value={form.formfields.jar}
+                                value={form.jar}
                                 onChange={handleChange}
                                 id="jars"
                             >
@@ -89,11 +89,11 @@ const NavTabs = ({ form }) => {
                             <select
                                 className="form-select"
                                 name="category"
-                                value={form.formfields.category}
+                                value={form.category}
                                 onChange={handleChange}
                                 id="categories"
                             >
-                                {getCategories(form.formfields.jar).map((category, index) => (
+                                {getCategories(form.jar).map((category, index) => (
                                     <option key={index} value={category.value}>{category.label}</option>
                                 ))}
                             </select>
@@ -108,9 +108,9 @@ const NavTabs = ({ form }) => {
                                 type="number"
                                 className="form-control"
                                 name="amount"
-                                value={form.formfields.amount}
+                                value={form.amount}
                                 onChange={handleChange}
-                                onBlur={() => handleErrorOfAmount(form.formfields.amount, 0)}
+                                onBlur={() => handleErrorOfAmount(form.amount, 0)}
                                 id="amount"
                                 placeholder="Amount of Money"
                             />
@@ -126,11 +126,11 @@ const NavTabs = ({ form }) => {
                                 type="text"
                                 className="form-control"
                                 name="description"
-                                value={form.formfields.description}
+                                value={form.description}
                                 onChange={handleChange}
-                                onBlur={() => handleErrorOfDescription(form.formfields.description, 0)}
+                                onBlur={() => handleErrorOfDescription(form.description, 0)}
                                 id="description"
-                                placeholder="Description about your transaction"
+                                placeholder="Describe your transaction"
                             />
                             <span className="text-danger errDescription"></span>
                         </div>
@@ -148,9 +148,9 @@ const NavTabs = ({ form }) => {
                                 type="datetime-local"
                                 className="form-control"
                                 name="datetime"
-                                value={form.formfields.datetime}
+                                value={form.datetime}
                                 onChange={handleChange}
-                                onBlur={() => handleErrorOfDatetime(form.formfields.datetime, 1)}
+                                onBlur={() => handleErrorOfDatetime(form.datetime, 1)}
                                 id="datetime"
                             />
                             <span className="text-danger errDatetime"></span>
@@ -164,13 +164,13 @@ const NavTabs = ({ form }) => {
                             <select
                                 className="form-select"
                                 name="category"
-                                value={form.formfields.category}
+                                value={form.category}
                                 onChange={handleChange}
                                 id="categories"
                             >
-                                <option value="part-time">Part-time</option>
-                                <option value="full-time">Full-time</option>
-                                <option value="bonus">Bonus</option>
+                                {getCategories(form.jar).map((category, index) => (
+                                    <option key={index} value={category.value}>{category.label}</option>
+                                ))}
                             </select>
                         </div>
                     </div>
@@ -183,9 +183,9 @@ const NavTabs = ({ form }) => {
                                 type="number"
                                 className="form-control"
                                 name="amount"
-                                value={form.formfields.amount}
+                                value={form.amount}
                                 onChange={handleChange}
-                                onBlur={() => handleErrorOfAmount(form.formfields.amount, 1)}
+                                onBlur={() => handleErrorOfAmount(form.amount, 1)}
                                 id="amount"
                                 placeholder="Amount of Money"
                             />
@@ -201,11 +201,11 @@ const NavTabs = ({ form }) => {
                                 type="text"
                                 className="form-control"
                                 name="description"
-                                value={form.formfields.description}
+                                value={form.description}
                                 onChange={handleChange}
-                                onBlur={() => handleErrorOfDescription(form.formfields.description, 1)}
+                                onBlur={() => handleErrorOfDescription(form.description, 1)}
                                 id="description"
-                                placeholder="Description about your transaction"
+                                placeholder="Describe your transaction"
                             />
                             <span className="text-danger errDescription"></span>
                         </div>
