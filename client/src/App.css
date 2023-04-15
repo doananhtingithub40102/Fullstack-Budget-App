@@ -70,6 +70,10 @@ svg {
     border-bottom: 2px solid #ff55c5;
 }
 
+.transaction:hover {
+    cursor: pointer;
+}
+
 /* Media Queries */
 @media only screen and (max-width: 600px) {
     #transactionButton {
