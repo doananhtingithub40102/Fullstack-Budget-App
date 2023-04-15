@@ -41,57 +41,62 @@ function getCategories(jar) {
     switch (jar) {
         case "necessaries":
             categories = jars.necessaries
-            break
+            break;
         case "freedom":
             categories = jars.freedom
-            break
+            break;
         case "saving":
             categories = jars.saving
-            break
+            break;
         case "education":
             categories = jars.education
-            break
+            break;
         case "playing":
             categories = jars.playing
-            break
+            break;
         case "giving":
             categories = jars.giving
-            break
+            break;
+        case undefined:
+            categories = [
+                { label: "Part-time", value: "part-time" },
+                { label: "Full-time", value: "full-time" },
+                { label: "Bonus", value: "bonus" }
+            ]
+            break;
 
         default:
-            categories = jars.necessaries
-            break
+            break;
     }
 
     return categories
 }
 
-function getCategoryValue(jar) {
+function getDefaultCategoryValue(jar) {
     let category
 
     switch (jar) {
         case "necessaries":
             category = "eat_drink_necessaries"
-            break
+            break;
         case "freedom":
             category = "fundCertificates"
-            break
+            break;
         case "saving":
             category = "saving"
-            break
+            break;
         case "education":
             category = "documents"
-            break
+            break;
         case "playing":
             category = "eat_drink_playing"
-            break
+            break;
         case "giving":
             category = "charity"
-            break
+            break;
 
         default:
-            category = "eat_drink_necessaries"
-            break
+            break;
     }
 
     return category
@@ -104,4 +109,19 @@ function getCategoryNameById(category_id) {
     return categoryName
 }
 
-export { getCategories, getCategoryValue, getCategoryNameById }
+function getJarName(category_id) {
+    const object_values = Object.values(jars)
+    let jarName = undefined
+
+    for (let i in object_values) {
+        const category = object_values[i].find(category => category.value === category_id)
+        if (category) {
+            jarName = Object.keys(jars)[i]
+            break;
+        }
+    }
+
+    return jarName
+}
+
+export { getCategories, getDefaultCategoryValue, getCategoryNameById, getJarName }
