@@ -1,27 +1,30 @@
 import { useState, useContext, useEffect } from "react"
-import Modal from "./Modal"
+import AddTransactionModal from "./AddTransactionModal"
+import TransactionDetailsModal from "./TransactionDetailsModal"
 import { TransactionContext, getTransactionsByMonthYear } from "../utils/TransactionProvider"
 import { formatMoney, sumMoney } from "../utils/money"
 import { getCategoryNameById } from "../utils/categories"
 import { getCurrentMonthYear, getMonthName, getWeekDay, getBgForWeekDay } from "../utils/datetime"
 import { FcPrevious, FcNext, FcAddDatabase } from "react-icons/fc"
 
-const Transaction = ({ transaction }) => {
+const Transaction = ({ transaction, onClick }) => {
     return (
-        <div className="row my-2">
-            <div className="col-sm-4">
-                <span className="text-white-50">{getCategoryNameById(transaction.category_id)}</span>
-            </div>
-            <div className="col-sm-4">
-                <span className="text-white">{transaction.description}</span>
-            </div>
-            <div className="col-sm-4 text-end">
-                <span className="text-info">
-                    {transaction.type === "income" && formatMoney(transaction.amount, "₫")}
-                </span>
-                <span className="text-danger">
-                    {transaction.type === "expenditure" && formatMoney(transaction.amount, "₫")}
-                </span>
+        <div className="transaction" onClick={() => onClick(transaction)}>
+            <div className="row my-2">
+                <div className="col-sm-4">
+                    <span className="text-white-50">{getCategoryNameById(transaction.category_id)}</span>
+                </div>
+                <div className="col-sm-4">
+                    <span className="text-white">{transaction.description}</span>
+                </div>
+                <div className="col-sm-4 text-end">
+                    <span className="text-info">
+                        {transaction.type === "income" && formatMoney(transaction.amount, "₫")}
+                    </span>
+                    <span className="text-danger">
+                        {transaction.type === "expenditure" && formatMoney(transaction.amount, "₫")}
+                    </span>
+                </div>
             </div>
         </div>
     )
@@ -47,13 +50,19 @@ const HeaderOfTransaction = ({ transaction }) => {
     )
 }
 
-const TransactionsInDay = ({ transactions }) => {
+const TransactionsInDay = ({ transactions, onClick }) => {
     return (
         <div className="transactions_in_day px-3 pb-2">
             <HeaderOfTransaction transaction={transactions} />
             <div>
                 {transactions.map((transaction) => {
-                    return <Transaction key={transaction._id} transaction={transaction} />
+                    return (
+                        <Transaction
+                            key={transaction._id}
+                            transaction={transaction}
+                            onClick={onClick}
+                        />
+                    )
                 })}
             </div>
         </div>
@@ -61,9 +70,12 @@ const TransactionsInDay = ({ transactions }) => {
 }
 
 const Dashboard = () => {
-    const [showModal, setShowModal] = useState(false)
+    const [showAddingModal, setShowAddingModal] = useState(false)
     const { transactions, setTransactions } = useContext(TransactionContext)
     const [monthYear, setMonthYear] = useState({})
+
+    const [showDisplayModal, setShowDisplayModal] = useState(false)
+    const [selectedTransaction, setSelectedTransaction] = useState(null)
 
     useEffect(() => {
         const [month, year] = getCurrentMonthYear()
@@ -84,6 +96,47 @@ const Dashboard = () => {
 
             return pairs
         }, [])
+    }
+
+    function handleAddTransaction(transaction) {
+        setTransactions((prevState) => [transaction, ...prevState]);
+    }
+
+    function handleTransactionClick(transaction) {
+        setSelectedTransaction(transaction)
+        setShowDisplayModal(true)
+    }
+
+    function handleDeleteTransaction(transaction_id) {
+        const confirmDelete = window.confirm('Are you sure you want to delete this transaction?')
+        if (confirmDelete) {
+            const new_transactions = transactions.filter((transaction) => transaction._id !== transaction_id)
+            setTransactions(new_transactions)
+        }
+
+        return confirmDelete
+    }
+
+    function handleEditTransaction(transaction_id, form) {
+        const confirmEdit = window.confirm('You want to save this edition?')
+        if (confirmEdit) {
+            // Find the index of the transaction that you want to edit with the given transaction_id
+            const index = transactions.findIndex((transaction) => transaction._id === transaction_id)
+    
+            // Create a new transaction with edited formfields
+            const editedTransaction = { ...transactions[index], datetime: form.datetime, description: form.description, amount: parseInt(form.amount), category_id: form.category }
+    
+            // Create a new transactions array with the edited transaction
+            const editedTransactions = [
+                ...transactions.slice(0, index),
+                editedTransaction,
+                ...transactions.slice(index + 1)
+            ]
+    
+            setTransactions(editedTransactions)
+        }
+
+        return confirmEdit
     }
 
     return (
@@ -142,7 +195,10 @@ const Dashboard = () => {
                     <div className="row" key={rowIndex}>
                         {pair.map((transactions, colIndex) => (
                             <div className="col-md-6" key={colIndex}>
-                                <TransactionsInDay transactions={transactions} />
+                                <TransactionsInDay
+                                    transactions={transactions}
+                                    onClick={handleTransactionClick}
+                                />
                             </div>
                         ))}
                     </div>
@@ -154,14 +210,26 @@ const Dashboard = () => {
                 type="button"
                 className="btn btn-primary rounded-circle border-white position-fixed px-2 pt-0 pb-1 fs-4"
                 id="transactionButton"
-                onClick={() => setShowModal(true)}
+                onClick={() => setShowAddingModal(true)}
             >
                 <FcAddDatabase />
             </button>
 
-            <Modal modal={{ showModal: showModal, setShowModal: setShowModal }} />
+            <AddTransactionModal
+                isOpen={showAddingModal}
+                onClose={() => setShowAddingModal(false)}
+                onSubmit={handleAddTransaction}
+            />
 
 
+            {showDisplayModal && (
+                <TransactionDetailsModal
+                    transaction={selectedTransaction}
+                    onClose={() => setShowDisplayModal(false)}
+                    onDelete={handleDeleteTransaction}
+                    onEdit={handleEditTransaction}
+                />
+            )}
         </main>
     )
 }
