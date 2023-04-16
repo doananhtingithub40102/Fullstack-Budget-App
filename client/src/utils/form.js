@@ -18,6 +18,24 @@ const defaultIncomeForm = {
     description: ""
 }
 
+function setDefaultTabs() {
+    const expendTabs = document.querySelector(".nav-tabs a[href='#expenditure']")
+    const expendTabContent = document.getElementById("expenditure")
+    const incomeTabs = document.querySelector(".nav-tabs a[href='#income']")
+    const incomeTabContent = document.getElementById("income")
+
+    expendTabs.setAttribute("class", "nav-link active")
+    expendTabs.setAttribute("aria-selected", "true")
+    expendTabs.removeAttribute("tabindex", "-1")
+    expendTabContent.setAttribute("class", "tab-pane text-danger active")
+    incomeTabs.setAttribute("class", "nav-link")
+    incomeTabs.setAttribute("aria-selected", "false")
+    incomeTabs.setAttribute("tabindex", "-1")
+    incomeTabContent.setAttribute("class", "tab-pane text-primary fade")
+
+    document.querySelector(".nav-tabs").style = "border-bottom-color: #dc3545 !important"
+}
+
 function handleErrorOfDatetime(datetime, index) {
     if (datetime === "") {
         document.getElementsByClassName("errDatetime").item(index).textContent = "Datetime is no empty!"
@@ -62,4 +80,4 @@ function clearErrors(index) {
     document.getElementsByClassName("errDescription").item(index).textContent = ""
 }
 
-export { defaultExpenditureForm, defaultIncomeForm, handleErrorOfDatetime, handleErrorOfAmount, handleErrorOfDescription, checkForm, clearErrors }
+export { defaultExpenditureForm, defaultIncomeForm, setDefaultTabs, handleErrorOfDatetime, handleErrorOfAmount, handleErrorOfDescription, checkForm, clearErrors }

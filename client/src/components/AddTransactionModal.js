@@ -2,9 +2,7 @@ import { useState, useEffect, useContext } from "react"
 import NavTabs from "./NavTabs"
 import { TransactionContext } from "../utils/TransactionProvider"
 import { getCurrentDateTime } from "../utils/datetime"
-import { defaultExpenditureForm, checkForm, clearErrors } from "../utils/form"
-
-import bootstrap from "bootstrap/dist/js/bootstrap.min"
+import { defaultExpenditureForm, setDefaultTabs, checkForm, clearErrors } from "../utils/form"
 
 const AddTransactionModal = ({ isOpen, onClose, onSubmit }) => {
     const [form, setForm] = useState(defaultExpenditureForm)
@@ -15,9 +13,7 @@ const AddTransactionModal = ({ isOpen, onClose, onSubmit }) => {
             setForm({ ...defaultExpenditureForm, datetime: getCurrentDateTime() })
             clearErrors(0)
 
-            const triggerExpendTabs = document.querySelector(".nav-tabs a[href='#expenditure']")
-            bootstrap.Tab.getInstance(triggerExpendTabs).show()
-            document.querySelector(".nav-tabs").style = "border-bottom-color: #dc3545 !important"
+            setDefaultTabs()
         }
     }, [isOpen])
 
