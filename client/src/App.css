@@ -3,6 +3,12 @@ main {
     background-color: #1d1c44;
 }
 
+.monthYear {
+    display: inline-block;
+    width: 117px;
+    text-align: center;
+}
+
 .text-nav-link {
     font-size: 1.4vw;
 }

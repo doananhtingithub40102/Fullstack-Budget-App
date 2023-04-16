@@ -86,6 +86,34 @@ const Dashboard = () => {
         })
     }, [])
 
+    function handlePaginationClick(direction) {
+        const month = parseInt(monthYear.month)
+        const year = parseInt(monthYear.year)
+        let newMonth = (direction === "prev" ? month - 1 : month + 1)
+        let newYear = year
+
+        if (newMonth < 1) {
+            newMonth = 12
+            newYear -= 1
+        } else if (newMonth > 12) {
+            newMonth = 1
+            newYear += 1
+        }
+
+        setMonthYear({
+            month: String(newMonth).padStart(2, "0"),
+            year: String(newYear)
+        })
+    }
+
+    function handlePrevClick() {
+        handlePaginationClick("prev")
+    }
+
+    function handleNextClick() {
+        handlePaginationClick("next")
+    }
+
     function getTransactionPairs(transactions) {
         return transactions.reduce((pairs, transaction, index) => {
             if (index % 2 === 0) {
@@ -122,17 +150,17 @@ const Dashboard = () => {
         if (confirmEdit) {
             // Find the index of the transaction that you want to edit with the given transaction_id
             const index = transactions.findIndex((transaction) => transaction._id === transaction_id)
-    
+
             // Create a new transaction with edited formfields
             const editedTransaction = { ...transactions[index], datetime: form.datetime, description: form.description, amount: parseInt(form.amount), category_id: form.category }
-    
+
             // Create a new transactions array with the edited transaction
             const editedTransactions = [
                 ...transactions.slice(0, index),
                 editedTransaction,
                 ...transactions.slice(index + 1)
             ]
-    
+
             setTransactions(editedTransactions)
         }
 
@@ -146,14 +174,16 @@ const Dashboard = () => {
                     type="button"
                     className="btn"
                     style={{ padding: "0 0 10px 0" }}
+                    onClick={handlePrevClick}
                 >
                     <FcPrevious />
                 </button>
-                <span className="text-light">{getMonthName(monthYear.month)} {monthYear.year}</span>
+                <span className="text-light monthYear">{getMonthName(monthYear.month)} {monthYear.year}</span>
                 <button
                     type="button"
                     className="btn"
                     style={{ padding: "0 0 10px 0" }}
+                    onClick={handleNextClick}
                 >
                     <FcNext />
                 </button>
