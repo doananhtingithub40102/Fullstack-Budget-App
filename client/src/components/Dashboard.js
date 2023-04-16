@@ -7,6 +7,8 @@ import { getCategoryNameById } from "../utils/categories"
 import { getCurrentMonthYear, getMonthName, getWeekDay, getBgForWeekDay } from "../utils/datetime"
 import { FcPrevious, FcNext, FcAddDatabase } from "react-icons/fc"
 
+import { NavLink } from "react-router-dom"
+
 const Transaction = ({ transaction, onClick }) => {
     return (
         <div className="transaction" onClick={() => onClick(transaction)}>
@@ -206,16 +208,16 @@ const Dashboard = () => {
                 <div className="col-md-6 d-flex justify-content-end">
                     <ul className="nav">
                         <li className="nav-item">
-                            <a className="nav-link text-white duration" href="/">Daily</a>
+                            <NavLink className="nav-link text-white duration" to="/">Daily</NavLink>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link text-white-50 duration" href="/">Date</a>
+                            <NavLink className="nav-link text-white-50 duration" to="/">Date</NavLink>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link text-white-50 duration" href="/">Week</a>
+                            <NavLink className="nav-link text-white-50 duration" to="/">Week</NavLink>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link text-white-50 duration" href="/">Month</a>
+                            <NavLink className="nav-link text-white-50 duration" to="/">Month</NavLink>
                         </li>
                     </ul>
                 </div>
