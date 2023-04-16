@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 
 import Navbar from "./components/Navbar"
 import Dashboard from "./components/Dashboard"
+import ImportFile from "./components/ImportFile"
 import { AccountProvider } from "./utils/AccountProvider"
 import { TransactionProvider } from "./utils/TransactionProvider"
 
@@ -19,6 +20,7 @@ const App = () => {
                 <TransactionProvider>
                     <Routes>
                         <Route path="/" element={<Dashboard />} />
+                        <Route path="/import" element={<ImportFile />} />
                     </Routes>
                 </TransactionProvider>
             </AccountProvider>
